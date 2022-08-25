@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  db:
+    container_name: concours_eni_database
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: concours
+      MYSQL_ROOT_PASSWORD: eliteeni
+    volumes: 
+      - mysql_data:/var/lib/mysql
+    tty: true
+    ports:
+      - "3306:3306"
+
+  backend:
+    container_name: concours_backend
+    build:
+      dockerfile: Dockerfile
+      context: "./backend"
+    env_file: ./backend/.env
+    depends_on:
+      - db
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+      - 127.0.0.1:9223:9223
+    environment:
+      - DB_HOST=concours_eni_database
+    command: npm start
+  
+  migration:
+    build:
+      context: "./backend"
+    command: 
+      [
+        "./wait-for-it/wait-for-it.sh",
+        "db:3306",
+        "--",
+        "npm",
+        "run",
+        "seed:run",
+      ]
+    links:
+      - db
+    depends_on:
+      - db
+    env_file: ./backend/.env
+    environment:
+      - DB_HOST=concours_eni_database
+
+volumes:
+  mysql_data: null
