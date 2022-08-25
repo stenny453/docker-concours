@@ -2,7 +2,9 @@ version: "3.7"
 services:
   db:
     container_name: concours_eni_database
-    image: mysql:5.7
+    build:
+      dockerfile: Dockerfile
+      context: "./database"
     restart: always
     environment:
       MYSQL_DATABASE: concours
@@ -30,27 +32,6 @@ services:
     environment:
       - DB_HOST=concours_eni_database
     command: npm start
-  
-  migration:
-    container_name: concours_backend_migration
-    build:
-      context: "./backend"
-    command: 
-      [
-        "./wait-for-it/wait-for-it.sh",
-        "db:3306",
-        "--",
-        "npm",
-        "run",
-        "seed:run",
-      ]
-    links:
-      - db
-    depends_on:
-      - db
-    env_file: ./backend/.env
-    environment:
-      - DB_HOST=concours_eni_database
 
 volumes:
   mysql_data: null

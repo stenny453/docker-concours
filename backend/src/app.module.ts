@@ -45,7 +45,7 @@ dotenv.config();
       cli: {
         "migrationsDir": "migration"
       },
-      synchronize: true, // false in Production
+      // synchronize: true, // false in Production
       // migrationsRun: true // utiliser migration au lieu de synchronize pour éviter l'erreur de creation de tables
     }),
     MulterModule.register({
