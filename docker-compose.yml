@@ -32,6 +32,7 @@ services:
     command: npm start
   
   migration:
+    container_name: concours_backend_migration
     build:
       context: "./backend"
     command: 
