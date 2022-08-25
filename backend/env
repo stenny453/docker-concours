@@ -1,0 +1,26 @@
+APP_PORT=3000
+DB_HOST=localhost
+DB_TYPE=mysql
+DB_PORT=3306
+# DB_TYPE = postgres
+# DB_PORT = 5432
+DB_USERNAME=root
+DB_PASSWORD=eliteeni
+# DB_USERNAME = postgres
+# DB_PASSWORD = elite2022
+DB_NAME=concours
+SECRET=concoursEniSecretKey
+STUDENT_SECRET=concoursEniSecretKey
+PATH_UPLOAD=http://localhost/concours/uploads/
+
+# mail
+MAIL_HOST=smtp.gmail.com
+MAIL_USER=stennygabrielrmr@gmail.com
+MAIL_PASSWORD=ccfhuxtbsaqdaxui
+MAIL_FROM=eni.univ@gmail.com
+
+# optional
+MAIL_TRANSPORT=smtp://${MAIL_USER}:${MAIL_PASSWORD}@${MAIL_HOST}
+
+TWILIO_ACCOUNT_SID=ACfrr
+TWILIO_AUTH_TOKEN=frf
